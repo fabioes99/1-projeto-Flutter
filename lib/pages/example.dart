@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
           "Meu app",
           //style: GoogleFonts.pacifico(),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black87,
         //style: GoogleFonts.
       ),
       body: Container(
