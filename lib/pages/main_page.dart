@@ -1,6 +1,7 @@
 import 'package:_1_projeto/pages/dados_cadastrais.dart';
 import 'package:_1_projeto/pages/page1teste.dart';
 import 'package:_1_projeto/pages/page2teste.dart';
+import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,25 +18,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer( 
-          child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: [
-                InkWell(
-                  child: Container(
-                    width: double.infinity,
-                    child: const Text("dados cadatrais")),
-                    onTap: (){
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DadosCadastrais() ));
-                    },
-                )
-              
-              ],
-            
-          ),
-        ),),
+        drawer: const MyDrawer(),
        appBar: AppBar(title: const Text('meu app bar'),),
        body: Column(
          children: [
