@@ -1,5 +1,5 @@
 import 'package:_1_projeto/pages/dados_cadastrais.dart';
-import 'package:_1_projeto/pages/page1teste.dart';
+import 'package:_1_projeto/pages/card_page.dart';
 import 'package:_1_projeto/pages/page2teste.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
                 });
               },
               children: const [
-              Page1Teste(),
+              CardPage(),
               Page2Teste()
               ],),
            ),
