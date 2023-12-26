@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:_1_projeto/utils/classificacao_imc.dart';
 
 class Pessoa {
   final String _id = UniqueKey().toString();
-  String _nome = '';
   double _peso = 0;
   double _altura = 0;
+  double _imc = 0;
+  String _classificacao = "";
+  String _data = '';
 
-  void setNome(String nome) => _nome = nome;
   void setPeso(double peso) => _peso = peso;
   void setAltura(double altura) => _altura = altura;
-  String getNome() => _nome;
+  void setImc(double imc) => _imc =  imc;
+  void setClassificacao(String classificacao) => _classificacao = classificacao;
+  void setData(String data) => _data = data;
+  double getImc() => _imc;
   double getPeso() => _peso;
   double getAltura() => _altura;
   String getId() => _id;
+  String getClassificacao() => _classificacao;
+  String getData() => _data;
 
-  Pessoa(this._nome, this._peso, this._altura);
+  Pessoa( double peso, double altura, String data){
+    _peso = peso;
+    _altura = altura;
+    _data = data;
+
+    try {
+      _imc = calcularIMC();
+      _classificacao = retornaClassificacao(_imc);
+    } catch (e) {
+      print("Erro ao calcular o IMC: $e");
+    }
+  }
 
   double calcularIMC( ) {
   if (_peso <= 0 || _altura <= 0) {
@@ -30,9 +48,10 @@ class Pessoa {
   return valorArredondado;
 }
 
+
  @override
   String toString(){
-    return { "Nome": getNome(), "peso": getPeso(), "altura": getAltura() }.toString();
+    return { "peso": getPeso(), "altura": getAltura() }.toString();
   }
 
 }

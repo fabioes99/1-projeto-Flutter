@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:_1_projeto/model/pessoa.dart';
+import 'package:_1_projeto/repositories/imc_repository.dart';
+import 'package:intl/intl.dart';
 
 class ImcPage extends StatefulWidget {
   const ImcPage({super.key});
@@ -11,6 +14,20 @@ class _ImcPageState extends State<ImcPage> {
   var dataController = TextEditingController();
   var pesoController = TextEditingController();
   var alturaController = TextEditingController();
+  var imcRepository = ImcRepository();
+  var _imc = <Pessoa>[];
+
+  @override
+  void initState() {
+    super.initState();
+    obterIMCPessoas();
+  }
+
+  void obterIMCPessoas() async{
+    _imc = await imcRepository.listar();
+    setState(() {});
+    print(_imc);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +44,27 @@ class _ImcPageState extends State<ImcPage> {
               content: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _buildTextFieldWithLabel("Data", dataController),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Data", style: TextStyle(fontWeight: FontWeight.w700)),
+                        TextField(
+                        controller: dataController,
+                        readOnly: true,
+                        onTap: () async {
+                          var data = await showDatePicker(context: context, 
+                          firstDate: DateTime(1929,1,1),
+                          lastDate: DateTime.now(),
+                          initialDate: DateTime(2000,1,1)
+                          );
+                          if(data != null){
+                             String dataFormatada = DateFormat('dd/MM/yyyy').format(data);
+                              dataController.text = dataFormatada;
+                          }
+                        },
+                      ),
+                      ],
+                    ),
                     _buildTextFieldWithLabel("Peso (kg)", pesoController),
                     _buildTextFieldWithLabel("Altura (cm)", alturaController),
                   ],
@@ -35,42 +72,55 @@ class _ImcPageState extends State<ImcPage> {
               ),
               actions: [
                 TextButton(onPressed: () { Navigator.pop(context); }, child: const Text('Cancelar')),
-                TextButton(onPressed: () { 
+                TextButton(onPressed: () async{ 
+                  String pesoTexto = pesoController.text;
+                  String alturaTexto = alturaController.text;
+                  double? peso = double.tryParse(pesoTexto);
+                  double? altura = double.tryParse(alturaTexto);
+                  String data = dataController.text;
+                  if (peso != null && altura != null) {
+                    await imcRepository.add(Pessoa(peso, altura, data));
+                  } else {
+                      print("Erro: Peso ou altura não puderam ser convertidos para double.");
+                  }
                   Navigator.pop(context); 
+                  obterIMCPessoas();
                 }, child: const Text('Salvar')),
               ],
             );
           });
         }),
-      body: Column(
-        children: [
-          Container(
+      body: ListView.builder(
+          itemCount: _imc.length,
+          itemBuilder: (BuildContext context, int index) {
+          var dados = _imc[index];
+          return Container(
            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: 
             Card(
               elevation: 16,
               shadowColor: Colors.purple.shade400,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Center(child: Text("25/03/2023", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),),
+                        Center(child: Text(dados.getData().toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Image.network( !.url, width: 100,),
-                            Text( "Peso: 82,9 kg"),
-                            Text( "Altura: 192 cm"),
+                            Text( "Peso ${dados.getPeso().toString()} kg" ),
+                            Text( "Altura ${dados.getAltura().toString()} cm"),
                           ],
                         ),
-                         Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text( "IMC: 26"),
-                            Text( "Categoria: Peso Ideal"),
+                            Text( "IMC: ${dados.getImc().toString()}"  ),
+                            Text( dados.getClassificacao()),
+
                           ],
                         ),
                       ],
@@ -79,9 +129,11 @@ class _ImcPageState extends State<ImcPage> {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
+          );
+        }
+    )
+
+
     );
   }
 
