@@ -27,4 +27,14 @@ class Tarefa{
     _concluido = concluido;
   }
 
+  /* da para usar desta forma tambem
+
+   bool get concluido => _concluido;
+
+  set descricao(String descricao){
+    _descricao = descricao;
+  }
+
+  */
+
 }
