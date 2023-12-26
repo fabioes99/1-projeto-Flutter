@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           verSenha = !verSenha;   
                         });
-                        }, child: Icon(  verSenha ? Icons.visibility_off : Icons.visibility, color:Color.fromARGB(255, 185, 102, 198))),
+                        }, child: Icon(  verSenha ? Icons.visibility_off : Icons.visibility, color:const Color.fromARGB(255, 185, 102, 198))),
                     ),
                   )
                    ),

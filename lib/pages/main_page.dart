@@ -1,4 +1,3 @@
-import 'package:_1_projeto/pages/dados_cadastrais.dart';
 import 'package:_1_projeto/pages/card_page.dart';
 import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
@@ -41,11 +40,11 @@ class _MainPageState extends State<MainPage> {
               TarefaPage()
               ],),
            ),
-          BottomNavigationBar( 
+           BottomNavigationBar( 
             type: BottomNavigationBarType.fixed,// passou de 3 paginas e necessario adicionar essa linha
             onTap: (value) {
             controller.jumpToPage(value);
-           } ,currentIndex: posicaoPagina,  items: [
+           } ,currentIndex: posicaoPagina,  items: const [
             BottomNavigationBarItem(label: "home", icon: Icon(Icons.home)),
             BottomNavigationBarItem(label: "teste", icon: Icon(Icons.add)),
             BottomNavigationBarItem(label: "ListView", icon: Icon(Icons.abc)),

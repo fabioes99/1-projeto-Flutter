@@ -17,7 +17,6 @@ class _TarefaPageState extends State<TarefaPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     obtertarefas();
   }
@@ -40,15 +39,15 @@ class _TarefaPageState extends State<TarefaPage> {
           descricaoController.text = '';
           showDialog(context: context, builder: (BuildContext bc) {
             return AlertDialog(
-              title: Text("Adicionar Tarefas"),
+              title: const Text("Adicionar Tarefas"),
               content: TextField( controller: descricaoController,),
               actions: [
-                TextButton(onPressed: () { Navigator.pop(context); }, child: Text('Cancelar')),
+                TextButton(onPressed: () { Navigator.pop(context); }, child: const Text('Cancelar')),
                 TextButton(onPressed: () async{ 
                   await tarefaRepository.add(Tarefa(descricaoController.text, false));
                   Navigator.pop(context); 
                   obtertarefas();
-                }, child: Text('Salvar')),
+                }, child: const Text('Salvar')),
               ],
             );
           });
