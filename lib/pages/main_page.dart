@@ -1,3 +1,4 @@
+import 'package:_1_projeto/pages/IMC_page.dart';
 import 'package:_1_projeto/pages/card_page.dart';
 import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
@@ -34,7 +35,8 @@ class _MainPageState extends State<MainPage> {
               },
               children: const [
               CardPage(),
-              ImageAssetsPage(),
+              //ImageAssetsPage(),
+              ImcPage(),
               ListViewPage(),
               ListViewHorizontal(),
               TarefaPage()
@@ -46,7 +48,7 @@ class _MainPageState extends State<MainPage> {
             controller.jumpToPage(value);
            } ,currentIndex: posicaoPagina,  items: const [
             BottomNavigationBarItem(label: "home", icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: "teste", icon: Icon(Icons.add)),
+            BottomNavigationBarItem(label: "IMC", icon: Icon(Icons.add)),
             BottomNavigationBarItem(label: "ListView", icon: Icon(Icons.abc)),
             BottomNavigationBarItem(label: "Page4", icon: Icon(Icons.person)),
             BottomNavigationBarItem(label: "Page5", icon: Icon(Icons.list)),
