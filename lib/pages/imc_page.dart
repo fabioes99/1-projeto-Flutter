@@ -47,8 +47,8 @@ class _ImcPageState extends State<ImcPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Data", style: TextStyle(fontWeight: FontWeight.w700)),
                         TextField(
+                        decoration: const InputDecoration(hintText: "Data"),
                         controller: dataController,
                         readOnly: true,
                         onTap: () async {
@@ -65,8 +65,8 @@ class _ImcPageState extends State<ImcPage> {
                       ),
                       ],
                     ),
-                    _buildTextFieldWithLabel("Peso (kg)", pesoController),
-                    _buildTextFieldWithLabel("Altura (cm)", alturaController),
+                    TextField(controller: pesoController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: "Peso kg"),),
+                    TextField(controller: alturaController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: "Altura cm"),),
                   ],
                 ),
               ),
@@ -136,18 +136,5 @@ class _ImcPageState extends State<ImcPage> {
 
     );
   }
-
-  Widget _buildTextFieldWithLabel(String label, TextEditingController controller) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
-        TextField(controller: controller),
-      ],
-    ),
-  );
-}
 
 }

@@ -1,4 +1,4 @@
-import 'package:_1_projeto/pages/card_detail.dart';
+import 'package:_1_projeto/shared/widgets/card_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/repositories/card_detail_repository.dart';
 

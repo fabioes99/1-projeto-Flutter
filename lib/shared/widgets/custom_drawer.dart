@@ -1,5 +1,7 @@
+import 'package:_1_projeto/pages/config_page.dart';
 import 'package:_1_projeto/pages/dados_cadastrais.dart';
 import 'package:_1_projeto/pages/login_page.dart';
+import 'package:_1_projeto/pages/numeros_aleatorios_page.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -103,6 +105,26 @@ class MyDrawer extends StatelessWidget {
                       ],
                     )
                   ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfigPage() ));
+                  },
+                ), const Divider(),
+                 InkWell(
+                  child: Container(
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.numbers),
+                        SizedBox(width: 5),
+                        Text("Gerador de numeros"),
+                      ],
+                    )
+                  ),
+                  onTap: (){
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NumerosAleatorios() ));
+                    },
                 ),
                 const Divider(),
                 InkWell(child: Container(

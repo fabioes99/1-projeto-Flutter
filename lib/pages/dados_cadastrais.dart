@@ -2,6 +2,7 @@ import 'package:_1_projeto/repositories/linguagens_repository.dart';
 import 'package:_1_projeto/repositories/nivel_repository.dart';
 import 'package:_1_projeto/shared/widgets/text_label.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DadosCadastrais extends StatefulWidget {
  const DadosCadastrais({super.key});
@@ -19,28 +20,49 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
   var nivelSelecionado = '';
   var linguagensRepository = LinguagensRepository();
   var linguagens = [];
-  var linguagensSelecionadas = [];
+  List<String> linguagensSelecionadas = [];
   double pretensaoSalarial = 2000;
   int tempoExperiencia = 0;
   bool salvando = false;
 
+  late SharedPreferences storage;
+
+  final CHAVE_NOME = 'nome';
+  final CHAVE_DATA_NASCIMENTO = 'data_nascimento';
+  final CHAVE_NIVEL = 'nivel';
+  final CHAVE_LINGUAGENS = 'linguagens';
+  final CHAVE_TEMPO_EXP = 'tempo_exp';
+  final CHAVE_PRETENSAO_SALARIAL = 'pretensao_salarial';
 
   @override
   void initState() {
     niveis = nivelRepository.retornaNiveis();
     linguagens = linguagensRepository.retornaLinguagens();
     super.initState();
+    carregarDados();
   }
 
-  List<DropdownMenuItem<int>> returnItems(int qtdMax){
-     var items = <DropdownMenuItem<int>>[];
-      for (int i = 1; i <= qtdMax; i++) {
-        items.add(DropdownMenuItem<int>(
-          value: i,
-          child: Text(' $i'),
-        ));
-      }
-     return items;
+  void carregarDados() async{
+    storage = await SharedPreferences.getInstance();
+    setState(() {
+      nomeController.text = storage.getString(CHAVE_NOME) ?? "";
+      dataNascimentoController.text = (storage.getString(CHAVE_DATA_NASCIMENTO) ?? "");
+      nivelSelecionado = storage.getString(CHAVE_NIVEL) ?? "";
+      linguagensSelecionadas = storage.getStringList(CHAVE_LINGUAGENS) ?? [];
+      tempoExperiencia = storage.getInt(CHAVE_TEMPO_EXP) ?? 0;
+      pretensaoSalarial = storage.getDouble(CHAVE_PRETENSAO_SALARIAL) ?? 2000;
+    });
+  }
+
+  List<DropdownMenuItem<int>> returnItens(int quantidadeMaxima) {
+    var itens = <DropdownMenuItem<int>>[];
+    for (var i = 0; i <= quantidadeMaxima; i++) {
+      itens.add(DropdownMenuItem(
+        child: Text(i.toString()),
+        value: i,
+      ));
+    }
+    return itens;
   }
 
   @override
@@ -111,9 +133,10 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         ).toList(),
                     ) ,
                     const TextLabel(texto: "Tempo de Experiencia em anos" ),
-                    DropdownButton(items: returnItems(7), 
+                    DropdownButton(
                     value: tempoExperiencia,
                     isExpanded: true,
+                    items: returnItens(7), 
                     onChanged: (value){
                       setState(() {
                        tempoExperiencia = int.parse(value.toString());
@@ -137,18 +160,24 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         salvando = true;
                       });
 
-                      Future.delayed(const Duration(seconds: 3), () {
+                      Future.delayed(const Duration(seconds: 2), () async{
                          ScaffoldMessenger.of(context).showSnackBar( 
                           const SnackBar(content: Text("Dados salvos com sucesso"))
                         );
+
                          setState(() {
                           salvando = false;
                         });
+                        await storage.setString(CHAVE_NOME, nomeController.text);
+                        await storage.setString(CHAVE_DATA_NASCIMENTO, dataNascimentoController.text);
+                        await storage.setString(CHAVE_NIVEL, nivelSelecionado);
+                        await storage.setStringList(CHAVE_LINGUAGENS, linguagensSelecionadas);
+                        await storage.setInt(CHAVE_TEMPO_EXP, tempoExperiencia);
+                        await storage.setDouble(CHAVE_PRETENSAO_SALARIAL, pretensaoSalarial);
+ 
                         Navigator.pop(context);
                       });
-
-
-                      }, 
+                    }, 
                       child: const Text("salvar"))
                   ],
                 ),
