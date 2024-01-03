@@ -1,7 +1,8 @@
-import 'package:_1_projeto/pages/config_page.dart';
+import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais.dart';
 import 'package:_1_projeto/pages/login_page.dart';
-import 'package:_1_projeto/pages/numeros_aleatorios_page.dart';
+import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
+//import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -123,7 +124,7 @@ class MyDrawer extends StatelessWidget {
                   ),
                   onTap: (){
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NumerosAleatorios() ));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NumerosAleatoriosHive() ));
                     },
                 ),
                 const Divider(),
