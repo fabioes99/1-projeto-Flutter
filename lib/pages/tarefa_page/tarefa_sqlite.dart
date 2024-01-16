@@ -1,19 +1,18 @@
-import 'package:_1_projeto/model/tarefa_hive.dart';
-import 'package:_1_projeto/repositories/tarefa_hive_repository.dart';
+import 'package:_1_projeto/model/tarefaSqlite.dart';
+import 'package:_1_projeto/repositories/sqlite/tarefa_sqlite_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:_1_projeto/model/tarefa.dart';
 
-class TarefaPage extends StatefulWidget {
-  const TarefaPage({super.key});
+class TarefaSqlitePage extends StatefulWidget {
+  const TarefaSqlitePage({super.key});
 
   @override
-  State<TarefaPage> createState() => _TarefaPageState();
+  State<TarefaSqlitePage> createState() => _TarefaSqlitePageState();
 }
 
-class _TarefaPageState extends State<TarefaPage> {
-  late TarefaHiveRepository tarefaHiveRepository;
+class _TarefaSqlitePageState extends State<TarefaSqlitePage> {
+  var tarefaSqliteRepository = TarefaSqliteRepository();
   var descricaoController = TextEditingController();
-  var _tarefas = <TarefaHiveModel>[];
+  var _tarefas = <TarefaSqliteModel>[];
   var apenasNaoConcluidos = false;
 
   @override
@@ -23,8 +22,7 @@ class _TarefaPageState extends State<TarefaPage> {
   }
 
   void obtertarefas() async{
-    tarefaHiveRepository = await TarefaHiveRepository.carregar();
-    _tarefas = tarefaHiveRepository.obterDados(apenasNaoConcluidos);
+    _tarefas = await tarefaSqliteRepository.obterDados(apenasNaoConcluidos);
     setState(() {});
   }
 
@@ -42,7 +40,7 @@ class _TarefaPageState extends State<TarefaPage> {
               actions: [
                 TextButton(onPressed: () { Navigator.pop(context); }, child: const Text('Cancelar')),
                 TextButton(onPressed: () async{ 
-                  await tarefaHiveRepository.adicionar(TarefaHiveModel.criar(descricaoController.text, false));
+                  await tarefaSqliteRepository.add(TarefaSqliteModel(0, descricaoController.text, false));
                   Navigator.pop(context); 
                   obtertarefas();
                 }, child: const Text('Salvar')),
@@ -74,17 +72,17 @@ class _TarefaPageState extends State<TarefaPage> {
                   var tarefa = _tarefas[index];
                   return Dismissible(
                     onDismissed: (DismissDirection dissmisDirection) async{
-                      await tarefaHiveRepository.excluir(tarefa);
+                      await tarefaSqliteRepository.delete(tarefa.getId());
                       obtertarefas();
                     },
-                    key: Key(tarefa.descricao),
+                    key: Key(tarefa.getDescricao()),
                     child: ListTile(
-                      title: Text(tarefa.descricao),
+                      title: Text(tarefa.getDescricao()),
                       trailing: Switch( onChanged: ( bool value ) async{
-                        tarefa.concluido = value;
-                        tarefaHiveRepository.alterar(tarefa);
+                        tarefa.setConcluido(value);
+                        tarefaSqliteRepository.update(tarefa);
                         obtertarefas();
-                      }, value: tarefa.concluido,),
+                      }, value: tarefa.getConcluido(),),
                     ),
                   );
               }),

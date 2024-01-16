@@ -1,9 +1,10 @@
 import 'package:_1_projeto/pages/IMC_page.dart';
 import 'package:_1_projeto/pages/card_page.dart';
-import 'package:_1_projeto/pages/image_assets.dart';
+//import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
 import 'package:_1_projeto/pages/list_view_horizontal.dart';
-import 'package:_1_projeto/pages/tarefa_page/tarefa_page.dart';
+//import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
+import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
               ImcPage(),
               ListViewPage(),
               ListViewHorizontal(),
-              TarefaPage()
+              TarefaSqlitePage()
               ],),
            ),
            BottomNavigationBar( 
