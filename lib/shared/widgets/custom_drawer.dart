@@ -1,5 +1,5 @@
 import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
-import 'package:_1_projeto/pages/dados_cadastrais.dart';
+import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/login_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
