@@ -3,7 +3,7 @@ import 'package:_1_projeto/pages/card_page.dart';
 import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
 import 'package:_1_projeto/pages/list_view_horizontal.dart';
-import 'package:_1_projeto/pages/tarefa_page.dart';
+import 'package:_1_projeto/pages/tarefa_page/tarefa_page.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(label: "IMC", icon: Icon(Icons.add)),
             BottomNavigationBarItem(label: "ListView", icon: Icon(Icons.abc)),
             BottomNavigationBarItem(label: "Page4", icon: Icon(Icons.person)),
-            BottomNavigationBarItem(label: "Page5", icon: Icon(Icons.list)),
+            BottomNavigationBarItem(label: "Tarefas", icon: Icon(Icons.list)),
           ]),
          ],
        ),

@@ -1,4 +1,5 @@
-import 'package:_1_projeto/repositories/tarefa_repository.dart';
+import 'package:_1_projeto/model/tarefa_hive.dart';
+import 'package:_1_projeto/repositories/tarefa_hive_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/tarefa.dart';
 
@@ -10,9 +11,9 @@ class TarefaPage extends StatefulWidget {
 }
 
 class _TarefaPageState extends State<TarefaPage> {
-  var tarefaRepository = TarefaRepository();
+  late TarefaHiveRepository tarefaHiveRepository;
   var descricaoController = TextEditingController();
-  var _tarefas = <Tarefa>[];
+  var _tarefas = <TarefaHiveModel>[];
   var apenasNaoConcluidos = false;
 
   @override
@@ -22,11 +23,8 @@ class _TarefaPageState extends State<TarefaPage> {
   }
 
   void obtertarefas() async{
-    if(apenasNaoConcluidos){
-      _tarefas = await tarefaRepository.listarNaoConcluidas();
-    }else{
-      _tarefas = await tarefaRepository.listar();
-    }
+    tarefaHiveRepository = await TarefaHiveRepository.carregar();
+    _tarefas = tarefaHiveRepository.obterDados(apenasNaoConcluidos);
     setState(() {});
   }
 
@@ -44,7 +42,7 @@ class _TarefaPageState extends State<TarefaPage> {
               actions: [
                 TextButton(onPressed: () { Navigator.pop(context); }, child: const Text('Cancelar')),
                 TextButton(onPressed: () async{ 
-                  await tarefaRepository.add(Tarefa(descricaoController.text, false));
+                  await tarefaHiveRepository.adicionar(TarefaHiveModel.criar(descricaoController.text, false));
                   Navigator.pop(context); 
                   obtertarefas();
                 }, child: const Text('Salvar')),
@@ -76,16 +74,17 @@ class _TarefaPageState extends State<TarefaPage> {
                   var tarefa = _tarefas[index];
                   return Dismissible(
                     onDismissed: (DismissDirection dissmisDirection) async{
-                      await tarefaRepository.excluir(tarefa.getId());
+                      await tarefaHiveRepository.excluir(tarefa);
                       obtertarefas();
                     },
-                    key: Key(tarefa.getId()),
+                    key: Key(tarefa.descricao),
                     child: ListTile(
-                      title: Text(tarefa.getDescricao()),
+                      title: Text(tarefa.descricao),
                       trailing: Switch( onChanged: ( bool value ) async{
-                        await tarefaRepository.alterar(tarefa.getId(), value);
+                        tarefa.concluido = value;
+                        tarefaHiveRepository.alterar(tarefa);
                         obtertarefas();
-                      }, value: tarefa.getConcluido(),),
+                      }, value: tarefa.concluido,),
                     ),
                   );
               }),
