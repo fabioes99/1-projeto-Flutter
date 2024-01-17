@@ -26,7 +26,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
   var linguagensRepository = LinguagensRepository();
   var linguagens = [];
   List<String> linguagensSelecionadas = [];
-  double pretensaoSalarial = 2000;
+  double pretensaoSalarial = 700;
   int tempoExperiencia = 0;
   bool salvando = false;
 

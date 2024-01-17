@@ -7,7 +7,14 @@ import 'package:path/path.dart' as path;
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         descricao TEXT,
         concluido INTEGER
-      );'''
+      );''',
+  2: ''' CREATE TABLE imc (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          peso REAL,
+          altura REAL,
+          data TEXT
+  );
+ '''
 };
 
 class SqliteDatabase{ 
@@ -26,7 +33,7 @@ class SqliteDatabase{
   var dbPath = path.join(await getDatabasesPath(), 'database.db');
   var db = await openDatabase(
     dbPath,
-    version: 1, 
+    version: scripts.length, 
     onCreate: (Database db, int version) async {
       for (var i = 1; i <= scripts.length; i++) {
         await db.execute(scripts[i]!);

@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:_1_projeto/utils/classificacao_imc.dart';
 
 class Pessoa {
-  final String _id = UniqueKey().toString();
+  int _id = 0;
   double _peso = 0;
   double _altura = 0;
   double _imc = 0;
@@ -17,11 +16,12 @@ class Pessoa {
   double getImc() => _imc;
   double getPeso() => _peso;
   double getAltura() => _altura;
-  String getId() => _id;
+  int getId() => _id;
   String getClassificacao() => _classificacao;
   String getData() => _data;
 
-  Pessoa( double peso, double altura, String data){
+  Pessoa( int id, double peso, double altura, String data){
+    _id = id;
     _peso = peso;
     _altura = altura;
     _data = data;
@@ -51,7 +51,7 @@ class Pessoa {
 
  @override
   String toString(){
-    return { "peso": getPeso(), "altura": getAltura() }.toString();
+    return { "id": getId(), "peso": getPeso(), "altura": getAltura() }.toString();
   }
 
 }

@@ -15,7 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   var senhaController = TextEditingController();
   bool verSenha = true;
   void onPressedFunction() {
-     debugPrint(senhaController.text);
       if(emailController.text.trim() == 'teste@123' && senhaController.text.trim() == '123'){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainPage() ));
       }else{

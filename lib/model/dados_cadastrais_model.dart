@@ -30,6 +30,6 @@ class DadosCadastraisModel extends HiveObject{
   nivelSelecionado = "";
   linguagens = [];
   tempoExperiencia = 0;
-  pretensaoSalarial = 0;
+  pretensaoSalarial = 700;
 }
 }
