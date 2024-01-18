@@ -2,6 +2,7 @@ import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/login_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
+import 'package:_1_projeto/pages/posts_page.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +50,7 @@ class MyDrawer extends StatelessWidget {
                const Divider(),
                 InkWell(
                   child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                     width: double.infinity,
                     child: const Row(
                       children: [
@@ -65,6 +67,7 @@ class MyDrawer extends StatelessWidget {
                  const Divider(),
                 InkWell(
                   child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                     width: double.infinity,
                     child: const Row(
                       children: [
@@ -97,6 +100,7 @@ class MyDrawer extends StatelessWidget {
                  const Divider(),
                  InkWell(
                   child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                     width: double.infinity,
                     child: const Row(
                       children: [
@@ -113,6 +117,7 @@ class MyDrawer extends StatelessWidget {
                 ), const Divider(),
                  InkWell(
                   child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                     width: double.infinity,
                     child: const Row(
                       children: [
@@ -128,8 +133,25 @@ class MyDrawer extends StatelessWidget {
                     },
                 ),
                 const Divider(),
+                 InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.post_add),
+                        SizedBox(width: 5),
+                        Text("Posts"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PostsPage() ));
+                  },
+                ), const Divider(),
                 InkWell(child: Container(
-                  padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                   width: double.infinity,
                   child: const Row(
                     children: [

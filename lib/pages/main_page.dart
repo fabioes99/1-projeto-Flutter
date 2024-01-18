@@ -5,6 +5,7 @@ import 'package:_1_projeto/pages/list_view.dart';
 import 'package:_1_projeto/pages/list_view_horizontal.dart';
 //import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
+import 'package:_1_projeto/pages/consulta_cep.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,8 @@ class _MainPageState extends State<MainPage> {
               ImcPage(),
               ListViewPage(),
               ListViewHorizontal(),
-              TarefaSqlitePage()
+              TarefaSqlitePage(),
+              ConsultaCep()
               ],),
            ),
            BottomNavigationBar( 
@@ -53,6 +55,7 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(label: "ListView", icon: Icon(Icons.abc)),
             BottomNavigationBarItem(label: "Page4", icon: Icon(Icons.person)),
             BottomNavigationBarItem(label: "Tarefas", icon: Icon(Icons.list)),
+            BottomNavigationBarItem(label: "HTTP", icon: Icon(Icons.get_app_rounded)),
           ]),
          ],
        ),
