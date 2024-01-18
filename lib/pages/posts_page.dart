@@ -1,4 +1,5 @@
 import 'package:_1_projeto/pages/comments_page.dart';
+import 'package:_1_projeto/repositories/posts/implement/posts_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/post.dart';
 
@@ -19,7 +20,7 @@ class _PostsPageState extends State<PostsPage> {
   @override
   void initState() {
     super.initState();
-    postsRepository = PostsHttpRepository();
+    postsRepository = PostsDio();
     carregarDados();
   }
 

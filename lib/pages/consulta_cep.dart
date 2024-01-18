@@ -1,8 +1,6 @@
 import 'package:_1_projeto/model/viacep.dart';
 import 'package:_1_projeto/repositories/viacep_repository.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class ConsultaCep extends StatefulWidget {
   const ConsultaCep({super.key});
@@ -56,7 +54,7 @@ class _ConsultaCepState extends State<ConsultaCep> {
               "${viacepModel.localidade ?? ""} - ${viacepModel.uf ?? ""}",
               style: TextStyle(fontSize: 22),
             ),
-            if (loading) CircularProgressIndicator()
+            if (loading) const CircularProgressIndicator()
             ],
           ),
         ),

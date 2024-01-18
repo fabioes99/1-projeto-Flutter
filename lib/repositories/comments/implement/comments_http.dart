@@ -2,7 +2,10 @@ import 'package:_1_projeto/model/Comment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class CommentsRepository {
+import '../comment_repository.dart';
+
+class CommentsHttp implements CommentsRepository{
+  @override
   Future<List<CommentModel>> retornaComentarios(int postId) async{
    var response = await http.get(Uri.parse(
         "https://jsonplaceholder.typicode.com/posts/$postId/comments"));
