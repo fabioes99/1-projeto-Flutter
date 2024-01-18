@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:_1_projeto/model/post.dart';
 
-import '../repositories/posts.dart';
+import 'posts.dart';
 
 class PostsHttpRepository implements PostsRepository {
   @override
