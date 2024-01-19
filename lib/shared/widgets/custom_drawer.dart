@@ -1,6 +1,7 @@
 import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/login_page.dart';
+import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 import 'package:_1_projeto/pages/posts_page.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
@@ -148,6 +149,23 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const PostsPage() ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.post_add),
+                        SizedBox(width: 5),
+                        Text("Heróis Marvel"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CharactersPage() ));
                   },
                 ), const Divider(),
                 InkWell(child: Container(
