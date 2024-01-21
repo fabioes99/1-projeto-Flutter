@@ -4,6 +4,8 @@ import 'package:_1_projeto/pages/login_page.dart';
 import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 import 'package:_1_projeto/pages/posts_page.dart';
+import 'package:_1_projeto/pages/tarefa_page/tarefa_api_page.dart';
+import 'package:_1_projeto/repositories/back4app/tarefas_back4app_repository.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer( 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               InkWell( onTap: () {
                 showModalBottomSheet(context: context,
@@ -167,7 +168,25 @@ class MyDrawer extends StatelessWidget {
                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CharactersPage() ));
                   },
-                ), const Divider(),
+                ),const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.post_add),
+                        SizedBox(width: 5),
+                        Text("Tarefas API"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TarefaApiPage() ));
+                  },
+                )
+                , const Divider(),
                 InkWell(child: Container(
                   padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                   width: double.infinity,
