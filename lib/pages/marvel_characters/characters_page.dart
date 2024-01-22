@@ -102,7 +102,7 @@ class _CharactersPageState extends State<CharactersPage> {
                               children: [
                                 Text(
                                   character.name!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),

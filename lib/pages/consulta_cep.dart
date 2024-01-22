@@ -1,5 +1,8 @@
-import 'package:_1_projeto/model/viacep.dart';
+import 'package:_1_projeto/model/cep_back4app.dart';
+//import 'package:_1_projeto/model/viacep.dart';
 import 'package:_1_projeto/repositories/viacep_repository.dart';
+import 'package:_1_projeto/repositories/back4app/cep_back4app_repository.dart';
+import 'package:_1_projeto/shared/widgets/text_label.dart';
 import 'package:flutter/material.dart';
 
 class ConsultaCep extends StatefulWidget {
@@ -11,9 +14,25 @@ class ConsultaCep extends StatefulWidget {
 
 class _ConsultaCepState extends State<ConsultaCep> {
   var cepController = TextEditingController(text: "");
-  var viacepModel = ViaCEPModel();
+  CEP viacepModel = CEP();
   var viaCEPRepository = ViaCepRepository();
+  var cepBack4appRepository =  CEPBack4appRepository() ;
+  CEPBack4appModel listaCep = CEPBack4appModel([]);
+  String cepNotFound = '';
   bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    carregarDados();
+  }
+
+  void carregarDados() async{
+    listaCep = await cepBack4appRepository.obterCEPS();
+    setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,30 +50,157 @@ class _ConsultaCepState extends State<ConsultaCep> {
               keyboardType: TextInputType.number,
               //maxLength: 8,
               onChanged: (String value) async {
-                var cep = value.replaceAll(new RegExp(r'[^0-9]'), '');
-                if (cep.length == 8) {
+                var cepTexto = value.replaceAll( RegExp(r'[^0-9]'), '');
+                if (cepTexto.length == 8) {
+                  viacepModel = await viaCEPRepository.consultarCEP(cepTexto);
+                  if(!listaCep.verificaCEP(cepTexto)){
+                    cepBack4appRepository.post(viacepModel);
+                    carregarDados();
+                  }
                   setState(() {
+                    cepNotFound = '';
                     loading = true;
                   });
-                  viacepModel = await viaCEPRepository.consultarCEP(cep);
+                  
+                }else{
+                  cepNotFound = 'Não foi encontrado o CEP';
+                  setState(() {
+                    viacepModel.localidade = '' ;
+                    viacepModel.logradouro = '';
+                    viacepModel.uf = '';
+                  });
                 }
                 setState(() {
                   loading = false;
                 });
               },
-            ),
-             const SizedBox(
-              height: 50,
-            ),
-            Text(
-              viacepModel.logradouro ?? "",
-              style: TextStyle(fontSize: 22),
-            ),
-            Text(
-              "${viacepModel.localidade ?? ""} - ${viacepModel.uf ?? ""}",
-              style: TextStyle(fontSize: 22),
-            ),
-            if (loading) const CircularProgressIndicator()
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                constraints: const BoxConstraints(maxHeight: 90),
+                child: cepNotFound.isNotEmpty ? 
+                Text(cepNotFound, style: const TextStyle(fontSize: 22)) : 
+                loading ? 
+                const Center(child: SizedBox( height: 50, width: 50, child: CircularProgressIndicator())) : 
+              Text(
+                '${viacepModel.logradouro ?? ""}\n${viacepModel.localidade ?? ""} - ${viacepModel.uf ?? ""}',
+                style: const TextStyle(fontSize: 22),
+                textAlign: TextAlign.center,
+              ),
+              ),
+                const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Endereços já pesquisados:",
+                style: TextStyle(fontSize: 22),
+              ),
+              Expanded(child: ListView.builder(
+                itemCount: listaCep.ceps.length,
+                itemBuilder: (_, int index) {
+                  var cep = listaCep.ceps[index];
+                  var cepBack4appController = TextEditingController(text: "");
+                  var logradouroController = TextEditingController(text: "");
+                  var cidadeController= TextEditingController(text: "");
+                  var siglaController = TextEditingController(text: "");
+                  var complementoController = TextEditingController(text: "");
+                  var bairroController= TextEditingController(text: "");
+                  cepBack4appController.text = cep.cep ?? '';
+                  logradouroController.text = cep.logradouro ?? '';
+                  siglaController.text = cep.uf ?? '';
+                  complementoController.text = cep.complemento ?? '';
+                  bairroController.text = cep.bairro ?? '';
+                  cidadeController.text = cep.localidade ?? '';
+                  
+                  return Dismissible(
+                    onDismissed: (DismissDirection dissmisDirection) async{
+                      await cepBack4appRepository.delete(cep.objectId!);
+                      carregarDados();
+                    },
+                    key: Key(cep.objectId!),
+                    child: 
+                    InkWell(
+                      onTap: () {
+                      showDialog(context: context, builder: (BuildContext bc) {
+                        return AlertDialog(
+                        title: const Text("Editar CEP") ,
+                        content: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const TextLabel(texto: "CEP"),
+                              TextField( controller: cepBack4appController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: "01001001"),),
+                              const TextLabel(texto: "Logradouro"),
+                              TextField( controller: logradouroController, decoration: const InputDecoration(hintText: "Rua hello world"),),
+                               const TextLabel(texto: "Cidade"),
+                              TextField( controller: cidadeController, decoration: const InputDecoration(hintText: "São Paulo"),),
+                               const TextLabel(texto: "Sigla"),
+                              TextField( controller: siglaController, decoration: const InputDecoration(hintText: "SP"),),
+                               const TextLabel(texto: "Bairro"),
+                              TextField( controller: bairroController, decoration: const InputDecoration(hintText: "Bairro"),),
+                               const TextLabel(texto: "Complemento"),
+                              TextField( controller: complementoController, decoration: const InputDecoration(hintText: "Casa, apartamento"),),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          TextButton(onPressed: () { Navigator.pop(context); }, child: const Text('Cancelar')),
+                          TextButton(onPressed: () async{                           
+                            await cepBack4appRepository.update(
+                              CEP( 
+                                objectId: cep.objectId, 
+                                cep: cepBack4appController.text,
+                                logradouro: logradouroController.text, 
+                                complemento: complementoController.text, 
+                                bairro: bairroController.text, 
+                                localidade: cidadeController.text, 
+                                uf: siglaController.text
+                              ));
+                          Navigator.pop(context); 
+                          carregarDados();
+                        }, child: const Text('Salvar')),
+                        ],
+                        );
+                      } );
+                        
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(13.0),
+                        child: Card(
+                          elevation: 16,
+                          shadowColor: Colors.purple.shade400,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: [
+                                    Center(child: Text(cep.cep ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(child: Text( "${cep.logradouro} - ${cep.localidade} - ${cep.uf}")),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                         Expanded(child: Text( "${cep.bairro} - ${cep.complemento} " )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              )) 
             ],
           ),
         ),
