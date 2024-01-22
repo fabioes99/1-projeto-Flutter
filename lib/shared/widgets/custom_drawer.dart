@@ -5,7 +5,7 @@ import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 import 'package:_1_projeto/pages/posts_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_api_page.dart';
-import 'package:_1_projeto/repositories/back4app/tarefas_back4app_repository.dart';
+//import 'package:_1_projeto/repositories/back4app/tarefas_back4app_repository.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
 import 'package:flutter/material.dart';
 

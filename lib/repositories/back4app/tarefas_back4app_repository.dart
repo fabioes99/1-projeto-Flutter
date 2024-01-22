@@ -1,5 +1,4 @@
 import 'package:_1_projeto/model/tarefas_back4app.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'back4app_custom_dio.dart';
 

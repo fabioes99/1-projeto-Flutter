@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/post.dart';
 
 import '../repositories/posts/posts_repository.dart';
-import '../repositories/posts/implement/posts_http.dart';
+//import '../repositories/posts/implement/posts_http.dart';
 
 class PostsPage extends StatefulWidget {
   const PostsPage({Key? key}) : super(key: key);
