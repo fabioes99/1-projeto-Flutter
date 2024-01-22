@@ -13,6 +13,7 @@ class ConsultaCep extends StatefulWidget {
 }
 
 class _ConsultaCepState extends State<ConsultaCep> {
+  final ScrollController _scrollController = ScrollController();
   var cepController = TextEditingController(text: "");
   CEP viacepModel = CEP();
   var viaCEPRepository = ViaCepRepository();
@@ -20,15 +21,36 @@ class _ConsultaCepState extends State<ConsultaCep> {
   CEPBack4appModel listaCep = CEPBack4appModel([]);
   String cepNotFound = '';
   bool loading = false;
+  var carregando = false;
+  int skip = 0;
 
   @override
   void initState() {
+    _scrollController.addListener(() {
+      var posicaoParaPaginar = _scrollController.position.maxScrollExtent * 0.9;
+      if (_scrollController.position.pixels > posicaoParaPaginar) {
+        print('aqui');
+        carregarDados();
+      }
+    });
     super.initState();
     carregarDados();
   }
 
-  void carregarDados() async{
-    listaCep = await cepBack4appRepository.obterCEPS();
+
+  carregarDados() async {
+    if (carregando) return;
+    if ( listaCep.ceps.isEmpty ) {
+      listaCep = await cepBack4appRepository.obterCEPS(skip);
+    } else {
+      setState(() {
+        carregando = true;
+      });
+      skip = skip + listaCep.ceps.length;
+      var tempList = await cepBack4appRepository.obterCEPS(skip);
+      listaCep.ceps.addAll(tempList.ceps);
+      carregando = false;
+    }
     setState(() {});
   }
 
@@ -98,6 +120,7 @@ class _ConsultaCepState extends State<ConsultaCep> {
                 style: TextStyle(fontSize: 22),
               ),
               Expanded(child: ListView.builder(
+                controller: _scrollController,
                 itemCount: listaCep.ceps.length,
                 itemBuilder: (_, int index) {
                   var cep = listaCep.ceps[index];
@@ -200,7 +223,14 @@ class _ConsultaCepState extends State<ConsultaCep> {
                     ),
                   );
                 }
-              )) 
+              )),
+              !carregando
+              ? ElevatedButton(
+                  onPressed: () {
+                    carregarDados();
+                  },
+                  child: const Text("Carregar mais CEP"))
+              : const CircularProgressIndicator() 
             ],
           ),
         ),

@@ -6,14 +6,14 @@ class CEPBack4appRepository {
 
   CEPBack4appRepository();
 
-  Future<CEPBack4appModel> obterCEPS() async {
-    var result = await _custonDio.dio.get("/CEP");
+  Future<CEPBack4appModel> obterCEPS(int skip) async {
+    var result = await _custonDio.dio.get("/CEP", queryParameters: { 'limit' : 3, 'skip': skip });
     CEPBack4appModel cep = CEPBack4appModel.fromJson(result.data);
     return cep;
   }
 
   String normalizarCEP(String cep){
-    String cepNormalizado = cep.replaceAll(new RegExp(r'[^0-9]'), '');
+    String cepNormalizado = cep.replaceAll(RegExp(r'[^0-9]'), '');
     return cepNormalizado;
   }
 
