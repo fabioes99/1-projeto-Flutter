@@ -8,6 +8,7 @@ import 'package:_1_projeto/pages/tarefa_page/tarefa_api_page.dart';
 //import 'package:_1_projeto/repositories/back4app/tarefas_back4app_repository.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -32,7 +33,7 @@ class MyDrawer extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text("Galeria"),
-                      leading: Icon(Icons.album),
+                      leading: FaIcon(FontAwesomeIcons.photoFilm),
                       onTap: () {
                          Navigator.pop(context);
                       },
