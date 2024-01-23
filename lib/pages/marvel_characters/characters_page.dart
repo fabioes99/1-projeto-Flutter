@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/characters.dart';
 import 'package:_1_projeto/repositories/marvel/marvel_api.dart';
+import 'package:intl/intl.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -60,6 +62,11 @@ class _CharactersPageState extends State<CharactersPage> {
     }
   }
 
+  String formatarNumero(double numero) {
+    NumberFormat formato = NumberFormat("0.00");
+    return formato.format(numero);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,15 +75,29 @@ class _CharactersPageState extends State<CharactersPage> {
         title: Text(
             "Heróis: ${retornaQuantidadeAtual()}/${retornaQuantidadeTotal()}"),
       ),
-      body: Column(
+      body: 
+      Column(
         children: [
+         Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+           child: LinearPercentIndicator(
+              width: MediaQuery.of(context).size.width - 50,
+              animation: true,
+              lineHeight: 20.0,
+              animationDuration: 2000,
+              percent: ((retornaQuantidadeAtual()/retornaQuantidadeTotal())) ?? 0,
+              center: Text( formatarNumero( ((retornaQuantidadeAtual()/retornaQuantidadeTotal())*100)).toString() + "%" ),
+              barRadius: const Radius.circular(20),
+              progressColor: Colors.greenAccent,
+            ),
+         ),
           Expanded(
             child: ListView.builder(
                 controller: _scrollController,
                 itemCount: (herois.data == null ||
-                        herois.data!.results == null)
-                    ? 0
-                    : herois.data!.results!.length,
+                herois.data!.results == null)
+                ? 0
+                : herois.data!.results!.length,
                 itemBuilder: (_, int index) {
                   var character = herois.data!.results![index];
                   return Card(

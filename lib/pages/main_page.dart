@@ -8,6 +8,7 @@ import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
 import 'package:_1_projeto/pages/consulta_cep.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -16,50 +17,51 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  PageController controller = PageController(initialPage: 0);
-  int posicaoPagina = 0;
+class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(initialIndex: 0, length: 6, vsync: this);
+  }
+  
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const MyDrawer(),
+      drawer: const MyDrawer(),
        appBar: AppBar(title: const Text('meu app bar'),),
-       body: Column(
-         children: [
-           Expanded(
-             child: PageView( 
-              controller: controller,
-              onPageChanged: (value) {
-                setState(() {
-                  posicaoPagina = value;
-                });
-              },
-              children: const [
-              CardPage(),
-              //ImageAssetsPage(),
-              ImcPage(),
-              ListViewPage(),
-              ListViewHorizontal(),
-              TarefaSqlitePage(),
-              ConsultaCep()
-              ],),
-           ),
-           BottomNavigationBar( 
-            type: BottomNavigationBarType.fixed,// passou de 3 paginas e necessario adicionar essa linha
-            onTap: (value) {
-            controller.jumpToPage(value);
-           } ,currentIndex: posicaoPagina,  items: const [
-            BottomNavigationBarItem(label: "home", icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: "IMC", icon: Icon(Icons.add)),
-            BottomNavigationBarItem(label: "ListView", icon: Icon(Icons.abc)),
-            BottomNavigationBarItem(label: "Page4", icon: Icon(Icons.person)),
-            BottomNavigationBarItem(label: "Tarefas", icon: Icon(Icons.list)),
-            BottomNavigationBarItem(label: "HTTP", icon: Icon(Icons.get_app_rounded)),
-          ]),
-         ],
-       ),
-      
+       body: 
+       TabBarView(
+        controller: tabController,
+        children: const [
+          CardPage(),
+          ImcPage(),
+          ListViewPage(),
+          ListViewHorizontal(),
+          TarefaSqlitePage(),
+          ConsultaCep()
+        ],
+      ),
+       bottomNavigationBar: ConvexAppBar(
+        items: const [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.balance, title: 'IMC'),
+          TabItem(icon: Icons.list, title: 'ListView'),
+          TabItem(icon: Icons.photo, title: 'Page4'),
+          TabItem(icon: Icons.task, title: 'Tarefas'),
+          TabItem(icon: Icons.place, title: 'CEP'),
+        ],
+        onTap: (int i) => tabController.index = i,
+        controller: tabController,
+      )
       ),
     );
   }
