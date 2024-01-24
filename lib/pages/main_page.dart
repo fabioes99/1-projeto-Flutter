@@ -5,7 +5,7 @@ import 'package:_1_projeto/pages/list_view.dart';
 import 'package:_1_projeto/pages/list_view_horizontal.dart';
 //import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
-import 'package:_1_projeto/pages/consulta_cep.dart';
+import 'package:_1_projeto/pages/cep_consulta_page.dart';
 import 'package:_1_projeto/shared/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';

@@ -1,9 +1,11 @@
 import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
+import 'package:_1_projeto/pages/localization_page.dart';
 import 'package:_1_projeto/pages/login_page.dart';
 import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
 import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 import 'package:_1_projeto/pages/posts_page.dart';
+import 'package:_1_projeto/pages/qrcode_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_api_page.dart';
 //import 'package:_1_projeto/repositories/back4app/tarefas_back4app_repository.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_shared_preferences.dart';
@@ -185,6 +187,40 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const TarefaApiPage() ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.mapLocationDot),
+                        SizedBox(width: 5),
+                        Text("Localização"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LocalizationPage() ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.mapLocationDot),
+                        SizedBox(width: 5),
+                        Text("QRCODE"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const QrcodeScannerPage() ));
                   },
                 )
                 , const Divider(),

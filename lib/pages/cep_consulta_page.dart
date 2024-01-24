@@ -3,7 +3,9 @@ import 'package:_1_projeto/model/cep_back4app.dart';
 import 'package:_1_projeto/repositories/viacep_repository.dart';
 import 'package:_1_projeto/repositories/back4app/cep_back4app_repository.dart';
 import 'package:_1_projeto/shared/widgets/text_label.dart';
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ConsultaCep extends StatefulWidget {
   const ConsultaCep({super.key});
@@ -29,7 +31,6 @@ class _ConsultaCepState extends State<ConsultaCep> {
     _scrollController.addListener(() {
       var posicaoParaPaginar = _scrollController.position.maxScrollExtent * 0.9;
       if (_scrollController.position.pixels > posicaoParaPaginar) {
-        print('aqui');
         carregarDados();
       }
     });
@@ -67,9 +68,13 @@ class _ConsultaCepState extends State<ConsultaCep> {
               "Consulta de CEP",
               style: TextStyle(fontSize: 22),
             ),
-            TextField(
+            TextFormField(
               controller: cepController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CepInputFormatter(),
+              ],
               //maxLength: 8,
               onChanged: (String value) async {
                 var cepTexto = value.replaceAll( RegExp(r'[^0-9]'), '');
@@ -153,7 +158,7 @@ class _ConsultaCepState extends State<ConsultaCep> {
                           child: Column(
                             children: [
                               const TextLabel(texto: "CEP"),
-                              TextField( controller: cepBack4appController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: "01001001"),),
+                              TextFormField( inputFormatters: [FilteringTextInputFormatter.digitsOnly, CepInputFormatter(),], controller: cepBack4appController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: "01001001"),),
                               const TextLabel(texto: "Logradouro"),
                               TextField( controller: logradouroController, decoration: const InputDecoration(hintText: "Rua hello world"),),
                                const TextLabel(texto: "Cidade"),
@@ -200,7 +205,7 @@ class _ConsultaCepState extends State<ConsultaCep> {
                                 padding: const EdgeInsets.all(12.0),
                                 child: Column(
                                   children: [
-                                    Center(child: Text(cep.cep ?? '', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),),
+                                    Center(child: Text( UtilBrasilFields.obterCep(cep.cep ?? '') , style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
