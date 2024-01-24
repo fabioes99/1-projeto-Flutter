@@ -2,7 +2,8 @@ import 'package:_1_projeto/pages/IMC_page.dart';
 import 'package:_1_projeto/pages/card_page.dart';
 //import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
-import 'package:_1_projeto/pages/list_view_horizontal.dart';
+//import 'package:_1_projeto/pages/list_view_horizontal.dart';
+import 'package:_1_projeto/pages/lista_contatos_page.dart';
 //import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
 import 'package:_1_projeto/pages/cep_consulta_page.dart';
@@ -45,7 +46,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           CardPage(),
           ImcPage(),
           ListViewPage(),
-          ListViewHorizontal(),
+          ListaContatosPage(),
+          //ListViewHorizontal(),
           TarefaSqlitePage(),
           ConsultaCep()
         ],
@@ -55,7 +57,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           TabItem(icon: Icons.home, title: 'Home'),
           TabItem(icon: Icons.balance, title: 'IMC'),
           TabItem(icon: Icons.list, title: 'ListView'),
-          TabItem(icon: Icons.photo, title: 'Page4'),
+          TabItem(icon: Icons.contacts, title: 'Contatos'),
           TabItem(icon: Icons.task, title: 'Tarefas'),
           TabItem(icon: Icons.place, title: 'CEP'),
         ],

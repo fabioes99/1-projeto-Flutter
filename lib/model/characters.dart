@@ -23,11 +23,11 @@ class CharactersModel {
     attributionText = json['attributionText'];
     attributionHTML = json['attributionHTML'];
     etag = json['etag'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['code'] = this.code;
     data['status'] = this.status;
     data['copyright'] = this.copyright;

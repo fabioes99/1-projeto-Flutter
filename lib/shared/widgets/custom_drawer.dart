@@ -1,3 +1,4 @@
+import 'package:_1_projeto/pages/camera_page.dart';
 import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/localization_page.dart';
@@ -178,7 +179,7 @@ class MyDrawer extends StatelessWidget {
                     width: double.infinity,
                     child: const Row(
                       children: [
-                        Icon(Icons.post_add),
+                        Icon(Icons.task),
                         SizedBox(width: 5),
                         Text("Tarefas API"),
                       ],
@@ -195,7 +196,7 @@ class MyDrawer extends StatelessWidget {
                     width: double.infinity,
                     child: const Row(
                       children: [
-                        FaIcon(FontAwesomeIcons.mapLocationDot),
+                        FaIcon(FontAwesomeIcons.locationDot),
                         SizedBox(width: 5),
                         Text("Localização"),
                       ],
@@ -212,7 +213,7 @@ class MyDrawer extends StatelessWidget {
                     width: double.infinity,
                     child: const Row(
                       children: [
-                        FaIcon(FontAwesomeIcons.mapLocationDot),
+                        FaIcon(FontAwesomeIcons.qrcode),
                         SizedBox(width: 5),
                         Text("QRCODE"),
                       ],
@@ -221,6 +222,23 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const QrcodeScannerPage() ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.camera),
+                        SizedBox(width: 5),
+                        Text("Camera"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage() ));
                   },
                 )
                 , const Divider(),

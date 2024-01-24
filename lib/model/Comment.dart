@@ -22,11 +22,11 @@ class CommentModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['postId'] = this.postId;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['body'] = this.body;
+    data['postId'] = postId;
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['body'] = body;
     return data;
   }
 }
