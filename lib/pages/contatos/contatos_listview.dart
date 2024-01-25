@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/contatos.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContatoCard extends StatelessWidget {
   final ContatoModel contato;
@@ -35,14 +36,27 @@ class ContatoCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundImage: FileImage(File(contato.pathPhoto ?? "")),
+                    Container(
+                      height: 80.0,
+                      width: 80.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.shade200,
                       ),
-                      Text(
-                        " ${contato.nome} \n ${contato.telefone} \n ${contato.email} \n ${contato.cpf} ",
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
+                      child: Center(
+                        child: contato.pathPhoto == '' 
+                          ? const Center(
+                            child: Text(
+                                'No image',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                          )
+                          : CircleAvatar(
+                              backgroundImage: FileImage(File(contato.pathPhoto!)),
+                              radius: 200.0,
+                            ),
+                      )),
+                      Text( "${contato.nome} \n ${contato.telefone} \n ${contato.email} \n ${contato.cpf} " , style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),),
                     ],
                   ),
                 ],
