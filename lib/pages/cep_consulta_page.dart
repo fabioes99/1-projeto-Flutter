@@ -23,7 +23,7 @@ class _ConsultaCepState extends State<ConsultaCep> {
   CEPBack4appModel listaCep = CEPBack4appModel([]);
   String cepNotFound = '';
   bool loading = false;
-  var carregando = false;
+  bool carregando = false;
   int skip = 0;
 
   @override

@@ -1,4 +1,4 @@
-import 'package:_1_projeto/model/Comment.dart';
+import 'package:_1_projeto/model/comment.dart';
 import 'package:_1_projeto/repositories/comments/comment_repository.dart';
 //import 'package:_1_projeto/repositories/comments/implement/comments_dio.dart';
 import 'package:_1_projeto/repositories/comments/implement/comments_http.dart';

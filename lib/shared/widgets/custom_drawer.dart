@@ -28,15 +28,15 @@ class MyDrawer extends StatelessWidget {
                  builder: (BuildContext bc) {
                   return  Column(children: [
                     ListTile(
-                      title: Text("Camera"),
-                      leading: Icon(Icons.camera),
+                      title: const Text("Camera"),
+                      leading: const Icon(Icons.camera),
                         onTap: () {
                          Navigator.pop(context);
                       },
                     ),
                     ListTile(
-                      title: Text("Galeria"),
-                      leading: FaIcon(FontAwesomeIcons.photoFilm),
+                      title: const Text("Galeria"),
+                      leading: const FaIcon(FontAwesomeIcons.photoFilm),
                       onTap: () {
                          Navigator.pop(context);
                       },

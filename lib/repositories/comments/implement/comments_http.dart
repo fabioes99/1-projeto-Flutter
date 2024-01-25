@@ -1,4 +1,4 @@
-import 'package:_1_projeto/model/Comment.dart';
+import 'package:_1_projeto/model/comment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

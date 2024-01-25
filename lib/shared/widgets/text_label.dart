@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextLabel extends StatelessWidget {
   final String texto;
-  const TextLabel({Key? key, required this.texto}) : super(key: key);
+  const TextLabel({super.key, required this.texto});
 
   @override
   Widget build(BuildContext context) {

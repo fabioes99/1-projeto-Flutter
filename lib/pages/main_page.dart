@@ -3,7 +3,7 @@ import 'package:_1_projeto/pages/card_page.dart';
 //import 'package:_1_projeto/pages/image_assets.dart';
 import 'package:_1_projeto/pages/list_view.dart';
 //import 'package:_1_projeto/pages/list_view_horizontal.dart';
-import 'package:_1_projeto/pages/lista_contatos_page.dart';
+import 'package:_1_projeto/pages/contatos_lista_page.dart';
 //import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
 import 'package:_1_projeto/pages/cep_consulta_page.dart';
