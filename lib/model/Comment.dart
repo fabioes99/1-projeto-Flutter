@@ -20,13 +20,14 @@ class CommentModel {
     body = json['body'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['postId'] = postId;
-    data['id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['body'] = body;
-    return data;
-  }
+ Map<String, dynamic> toJson() {
+  return {
+    'postId': postId,
+    'id': id,
+    'name': name,
+    'email': email,
+    'body': body,
+  };
+}
+
 }

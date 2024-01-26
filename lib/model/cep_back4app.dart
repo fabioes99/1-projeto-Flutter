@@ -19,7 +19,6 @@ class CEP {
       String? localidade,
       String? uf,}) {
     
-    this.objectId = objectId;
     
     if (cep != null) {
        this.cep = cep;
@@ -54,19 +53,19 @@ class CEP {
     );
   }
 
- Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['objectId'] = objectId;
-    data['cep'] = cep;
-    data['logradouro'] = logradouro;
-    data['complemento'] = complemento;
-    data['bairro'] = bairro;
-    data['localidade'] = localidade;
-    data['uf'] = uf;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    return data;
-  }
+Map<String, dynamic> toJson() {
+  return {
+    'objectId': objectId,
+    'cep': cep,
+    'logradouro': logradouro,
+    'complemento': complemento,
+    'bairro': bairro,
+    'localidade': localidade,
+    'uf': uf,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
+  };
+}
 
    Map<String, dynamic> toJsonEndpoint() {
     final Map<String, dynamic> data = <String, dynamic>{};

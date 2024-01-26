@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/contatos.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 
 class ContatoCard extends StatelessWidget {
   final ContatoModel contato;
   final VoidCallback onEdit;
   final Future<void> Function() onDelete;
+  
 
   const ContatoCard({
     required this.contato,

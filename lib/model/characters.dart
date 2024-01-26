@@ -28,12 +28,12 @@ class CharactersModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['code'] = this.code;
-    data['status'] = this.status;
-    data['copyright'] = this.copyright;
-    data['attributionText'] = this.attributionText;
-    data['attributionHTML'] = this.attributionHTML;
-    data['etag'] = this.etag;
+    data['code'] = code;
+    data['status'] = status;
+    data['copyright'] = copyright;
+    data['attributionText'] = attributionText;
+    data['attributionHTML'] = attributionHTML;
+    data['etag'] = etag;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -58,19 +58,19 @@ class Data {
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add( Results.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['offset'] = this.offset;
-    data['limit'] = this.limit;
-    data['total'] = this.total;
-    data['count'] = this.count;
-    if (this.results != null) {
-      data['results'] = this.results!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['offset'] = offset;
+    data['limit'] = limit;
+    data['total'] = total;
+    data['count'] = count;
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -93,17 +93,17 @@ class Results {
     name = json['name'];
     description = json['description'];
     thumbnail = json['thumbnail'] != null
-        ? new Thumbnail.fromJson(json['thumbnail'])
+        ? Thumbnail.fromJson(json['thumbnail'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    if (this.thumbnail != null) {
-      data['thumbnail'] = this.thumbnail!.toJson();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    if (thumbnail != null) {
+      data['thumbnail'] = thumbnail!.toJson();
     }
     return data;
   }
@@ -121,8 +121,8 @@ class Thumbnail {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['path'] = this.path;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['path'] = path;
     data['extension'] = this.extension;
     return data;
   }
