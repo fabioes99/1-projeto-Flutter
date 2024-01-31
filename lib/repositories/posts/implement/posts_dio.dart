@@ -4,6 +4,9 @@ import 'package:_1_projeto/repositories/posts/posts_repository.dart';
 import 'package:_1_projeto/repositories/jsonplaceholder_custom.dart';
 
 class PostsDio implements PostsRepository{
+   final JsonPlaceHolderCustonDio jsonPlaceHolderCustonDio ;
+
+   PostsDio(this.jsonPlaceHolderCustonDio);
   @override
   Future<List<PostModel>> getPosts() async{
     final jsonPlaceHolderCustonDio = JsonPlaceHolderCustonDio();

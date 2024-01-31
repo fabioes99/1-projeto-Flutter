@@ -4,6 +4,9 @@ import 'package:_1_projeto/repositories/jsonplaceholder_custom.dart';
 
 
 class CommentsDio implements CommentsRepository{
+  final JsonPlaceHolderCustonDio jsonPlaceHolderCustonDio ;
+
+  CommentsDio(this.jsonPlaceHolderCustonDio);
   @override
   Future<List<CommentModel>> retornaComentarios(int postId) async{
     final jsonPlaceHolderCustonDio = JsonPlaceHolderCustonDio();

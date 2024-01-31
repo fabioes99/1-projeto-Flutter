@@ -1,5 +1,5 @@
 import 'package:_1_projeto/model/tarefa_hive.dart';
-import 'package:_1_projeto/repositories/tarefa_hive_repository.dart';
+import 'package:_1_projeto/repositories/tarefas/tarefa_hive_repository.dart';
 import 'package:flutter/material.dart';
 //import 'package:_1_projeto/model/tarefa.dart';
 

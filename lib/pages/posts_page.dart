@@ -1,26 +1,25 @@
+import 'package:_1_projeto/main.dart';
 import 'package:_1_projeto/pages/comments_page.dart';
-import 'package:_1_projeto/repositories/posts/implement/posts_dio.dart';
+//import 'package:_1_projeto/repositories/posts/implement/posts_dio.dart';
 import 'package:flutter/material.dart';
 import 'package:_1_projeto/model/post.dart';
-
 import '../repositories/posts/posts_repository.dart';
 //import '../repositories/posts/implement/posts_http.dart';
 
 class PostsPage extends StatefulWidget {
-  const PostsPage({Key? key}) : super(key: key);
+  const PostsPage({super.key});
 
   @override
   State<PostsPage> createState() => _PostsPageState();
 }
 
 class _PostsPageState extends State<PostsPage> {
-  late PostsRepository postsRepository;
+  var postsRepository = getIt<PostsRepository>();
   var posts = <PostModel>[];
 
   @override
   void initState() {
     super.initState();
-    postsRepository = PostsDio();
     carregarDados();
   }
 
@@ -34,17 +33,17 @@ class _PostsPageState extends State<PostsPage> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Posts"),
+        title: const Text("Posts"),
       ),
       body: ListView.builder(
           itemCount: posts.length,
           itemBuilder: (_, index) {
             var post = posts[index];
             return Container(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: InkWell(
                   onTap: (){ 
-                    print(post.id);
+                    //print(post.id);
                     Navigator.push(
                       context, MaterialPageRoute(builder: (_) => 
                       CommentsPage(postId: post.id))
@@ -52,7 +51,7 @@ class _PostsPageState extends State<PostsPage> {
                   },
                   child: Card(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding:const  EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

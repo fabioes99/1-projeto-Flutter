@@ -1,7 +1,9 @@
+import 'package:_1_projeto/services/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:_1_projeto/repositories/config_repository.dart';
 import 'package:_1_projeto/model/config.dart';
+import 'package:provider/provider.dart';
 
 class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
@@ -48,7 +50,7 @@ class _ConfigPageState extends State<ConfigPage> {
   Widget build(BuildContext context) {
     return  SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text("Configurações"), ), 
+        appBar: AppBar(title: const Text("Configurações"), ), 
         body: ListView(children: [
              Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -73,18 +75,19 @@ class _ConfigPageState extends State<ConfigPage> {
                 receberNotificacoes = value;
               });
             }),
-            SwitchListTile(
-              title: Text("Tema Escuro"),
-              value: temaEscuro, 
-              onChanged: (bool value) {
-              setState(() {
-                temaEscuro = value;
-              });
-            }),
+            Consumer<DarkModeService>(
+              builder: (_, darkModeService, widget) {
+                return SwitchListTile(
+                  title: const Text("Tema Escuro"),
+                  value: temaEscuro, 
+                  onChanged: (bool value) {
+                    darkModeService.darkMode = value;
+                    temaEscuro = darkModeService.darkMode;
+                });
+              }
+            ),
             TextButton(onPressed: () async{
               FocusManager.instance.primaryFocus?.unfocus();
-
-
             try {
               configuracoesModel.altura = double.parse(alturaController.text);
             } catch (e) {
@@ -92,15 +95,15 @@ class _ConfigPageState extends State<ConfigPage> {
                   context: context,
                   builder: (_) {
                     return AlertDialog(
-                      title: Text("Meu App"),
+                      title: const Text("Meu App"),
                       content:
-                          Text("Favor informar uma altura válida!"),
+                          const Text("Favor informar uma altura válida!"),
                       actions: [
                         TextButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("Ok"))
+                            child: const Text("Ok"))
                       ],
                     );
                   });
@@ -110,7 +113,7 @@ class _ConfigPageState extends State<ConfigPage> {
               configuracoesModel = ConfiguracoesModel(nomeUsuarioController.text, configuracoesModel.altura, receberNotificacoes, temaEscuro);
               configuracoesRepository.salvar(configuracoesModel);
               Navigator.pop(context);
-            }, child: Text("Salvar"))
+            }, child: const Text("Salvar"))
           ],
           ),
       ),);

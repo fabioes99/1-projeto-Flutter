@@ -4,7 +4,8 @@ import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/localization_page.dart';
 import 'package:_1_projeto/pages/login_page.dart';
 import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
-import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
+import 'package:_1_projeto/pages/mobx/contador_page.dart';
+//import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
 import 'package:_1_projeto/pages/posts_page.dart';
 import 'package:_1_projeto/pages/qrcode_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_api_page.dart';
@@ -135,7 +136,7 @@ class MyDrawer extends StatelessWidget {
                   ),
                   onTap: (){
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NumerosAleatoriosHive() ));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ContadorMobxPage() ));
                     },
                 ),
                 const Divider(),

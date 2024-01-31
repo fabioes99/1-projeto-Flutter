@@ -1,7 +1,7 @@
+import 'package:_1_projeto/main.dart';
 import 'package:_1_projeto/model/comment.dart';
 import 'package:_1_projeto/repositories/comments/comment_repository.dart';
 //import 'package:_1_projeto/repositories/comments/implement/comments_dio.dart';
-import 'package:_1_projeto/repositories/comments/implement/comments_http.dart';
 import 'package:flutter/material.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -13,13 +13,12 @@ class CommentsPage extends StatefulWidget {
 }
 
 class _CommentsPageState extends State<CommentsPage> {
-  late CommentsRepository commentsRepository;
+  var commentsRepository = getIt<CommentsRepository>();
   var comments = <CommentModel>[];
 
   @override
   void initState() {
     super.initState();
-     commentsRepository = CommentsHttp();
     carregarDados();
   }
 
@@ -43,7 +42,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   var comment = comments[index];
                   return Card(
                       child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
