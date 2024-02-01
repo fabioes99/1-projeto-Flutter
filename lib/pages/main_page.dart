@@ -1,11 +1,11 @@
 import 'package:_1_projeto/pages/IMC_page.dart';
 import 'package:_1_projeto/pages/card_page.dart';
 //import 'package:_1_projeto/pages/image_assets.dart';
-import 'package:_1_projeto/pages/list_view.dart';
+//import 'package:_1_projeto/pages/list_view.dart';
 //import 'package:_1_projeto/pages/list_view_horizontal.dart';
 import 'package:_1_projeto/pages/contatos/contatos_lista_page.dart';
 import 'package:_1_projeto/pages/mobx/tarefa_mobx_page.dart';
-import 'package:_1_projeto/pages/tarefa_page/tarefa_provider.dart';
+//import 'package:_1_projeto/pages/tarefa_page/tarefa_provider.dart';
 //import 'package:_1_projeto/pages/tarefa_page/tarefa_hive_page.dart';
 import 'package:_1_projeto/pages/tarefa_page/tarefa_sqlite.dart';
 import 'package:_1_projeto/pages/cep_consulta_page.dart';

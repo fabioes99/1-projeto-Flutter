@@ -2,6 +2,8 @@ import 'package:_1_projeto/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +13,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String userId = '';
+
+  @override
+  void initState() {
+    carregarUsuario();
+    super.initState();
+  }
+
+  carregarUsuario() async{
+    final prefs = await SharedPreferences.getInstance();
+    var uuid = const Uuid();
+    userId = uuid.v4();
+    await prefs.setString('user_id', userId);
+  }
+
   var emailController = TextEditingController();
   var senhaController = TextEditingController();
   bool verSenha = true;

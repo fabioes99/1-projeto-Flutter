@@ -1,8 +1,11 @@
 import 'package:_1_projeto/pages/camera_page.dart';
 import 'package:_1_projeto/pages/configuracoes/config_hive.dart';
 import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
+import 'package:_1_projeto/pages/firebase/chat_page.dart';
+import 'package:_1_projeto/pages/firebase/example_page.dart';
+import 'package:_1_projeto/pages/firebase/tarefa_page.dart';
 import 'package:_1_projeto/pages/localization_page.dart';
-import 'package:_1_projeto/pages/login_page.dart';
+import 'package:_1_projeto/pages/login/login_page.dart';
 import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
 import 'package:_1_projeto/pages/mobx/contador_page.dart';
 //import 'package:_1_projeto/pages/numeros_aleatorios/numeros_aleatorios_hive.dart';
@@ -19,6 +22,8 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var nicknameController = TextEditingController();
+
     return Drawer( 
           child: ListView(
             children: [
@@ -241,8 +246,74 @@ class MyDrawer extends StatelessWidget {
                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraPage() ));
                   },
-                )
-                , const Divider(),
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.database),
+                        SizedBox(width: 5),
+                        Text("Example Firebase"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ExemploPage(title: 'teste') ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.database),
+                        SizedBox(width: 5),
+                        Text("Lista Firebase"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                     Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TarefaFirebase() ));
+                  },
+                ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.chat),
+                        SizedBox(width: 5),
+                        Text("Chat Firebase"),
+                      ],
+                    )
+                  ),
+                  onTap: () {
+                    showDialog(context: context, builder: (_){
+                      return AlertDialog(
+                        content: Wrap(
+                          children: [
+                            const Text("Digite seu Nickname"),
+                            TextField(
+                              controller: nicknameController,
+                              maxLength: 30,
+                            ),
+                            TextButton(onPressed: () {
+                              //nicknameController.text = '';
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ChatFirebasePage(nickName: nicknameController.text) ));
+                            }, child: const Text('Entrar no chat'))
+                          ],
+                        ),
+                      );
+                    });
+                  },
+                ), const Divider(),
                 InkWell(child: Container(
                   padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                   width: double.infinity,

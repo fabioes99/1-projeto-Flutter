@@ -7,6 +7,7 @@ import 'package:_1_projeto/repositories/jsonplaceholder_custom.dart';
 import 'package:_1_projeto/repositories/posts/implement/posts_dio.dart';
 import 'package:_1_projeto/repositories/posts/posts_repository.dart';
 import 'package:_1_projeto/services/contador_mobx.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -42,6 +43,22 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(minutes: 1),
+    minimumFetchInterval: const Duration(hours: 1)
+  ));
+  
+  await remoteConfig.setDefaults(const {
+    "example_param_1": 42,
+    "example_param_2": 3.14159,
+    "example_param_3": true,
+    "example_param_4": "Hello, world!",
+  });
+  await remoteConfig.fetchAndActivate();
+  print(remoteConfig.getString('example_param_4'));
+
   runApp(const MyApp());
 }
 
