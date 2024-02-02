@@ -1,6 +1,5 @@
 import 'package:_1_projeto/pages/login/login_page.dart';
 import 'package:_1_projeto/pages/main_page.dart';
-//import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';

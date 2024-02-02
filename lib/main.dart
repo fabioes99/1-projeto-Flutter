@@ -1,12 +1,14 @@
 import 'package:_1_projeto/model/dados_cadastrais_model.dart';
 import 'package:_1_projeto/model/tarefa_hive.dart';
 import 'package:_1_projeto/my_app.dart';
+import 'package:_1_projeto/pages/forum/service_firestore.dart';
 import 'package:_1_projeto/repositories/comments/comment_repository.dart';
 import 'package:_1_projeto/repositories/comments/implement/comments_dio.dart';
 import 'package:_1_projeto/repositories/jsonplaceholder_custom.dart';
 import 'package:_1_projeto/repositories/posts/implement/posts_dio.dart';
 import 'package:_1_projeto/repositories/posts/posts_repository.dart';
 import 'package:_1_projeto/services/contador_mobx.dart';
+//import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -26,6 +28,7 @@ setupGetit(){
   getIt.registerSingleton<JsonPlaceHolderCustonDio>(JsonPlaceHolderCustonDio());
   getIt.registerSingleton<PostsRepository>(PostsDio(getIt<JsonPlaceHolderCustonDio>()));
   getIt.registerSingleton<CommentsRepository>(CommentsDio(getIt<JsonPlaceHolderCustonDio>()));
+  getIt.registerSingleton<FirestoreService>(FirestoreService());
 }
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,12 +40,14 @@ void main() async{
   await database.iniciarBancoDeDados();
   await dotenv.load(fileName: ".env");
 
-  setupGetit();
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+   setupGetit();
+
+  //FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
   final remoteConfig = FirebaseRemoteConfig.instance;
   await remoteConfig.setConfigSettings(RemoteConfigSettings(
@@ -57,8 +62,9 @@ void main() async{
     "example_param_4": "Hello, world!",
   });
   await remoteConfig.fetchAndActivate();
-  print(remoteConfig.getString('example_param_4'));
-
+  //config feita na pagina do firebase
+  //print(remoteConfig.getString('example_param_4'));
+ 
   runApp(const MyApp());
 }
 

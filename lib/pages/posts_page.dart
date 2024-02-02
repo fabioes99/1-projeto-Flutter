@@ -43,7 +43,6 @@ class _PostsPageState extends State<PostsPage> {
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: InkWell(
                   onTap: (){ 
-                    //print(post.id);
                     Navigator.push(
                       context, MaterialPageRoute(builder: (_) => 
                       CommentsPage(postId: post.id))

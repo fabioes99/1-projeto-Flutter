@@ -4,6 +4,7 @@ import 'package:_1_projeto/pages/dados_cadastrais/dados_cadastrais_hive.dart';
 import 'package:_1_projeto/pages/firebase/chat_page.dart';
 import 'package:_1_projeto/pages/firebase/example_page.dart';
 import 'package:_1_projeto/pages/firebase/tarefa_page.dart';
+import 'package:_1_projeto/pages/forum/salas_page.dart';
 import 'package:_1_projeto/pages/localization_page.dart';
 import 'package:_1_projeto/pages/login/login_page.dart';
 import 'package:_1_projeto/pages/marvel_characters/characters_page.dart';
@@ -58,8 +59,23 @@ class MyDrawer extends StatelessWidget {
                 ),
                 accountName: const Text("fabioes"), 
                 accountEmail: const Text("teste@123")),
-              ),
-               const Divider(),
+              ), const Divider(),
+                InkWell(
+                  child: Container(
+                    padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+                    width: double.infinity,
+                    child: const Row(
+                      children: [
+                        Icon(Icons.chat),
+                        SizedBox(width: 5),
+                        Text("Salas"),
+                      ],
+                    )),
+                    onTap: (){
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SalasPage() ));
+                    },
+                ) , const Divider(),
                 InkWell(
                   child: Container(
                     padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 7),

@@ -7,7 +7,6 @@ class ImageAssetsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      
       children: [
         Image.asset(AppImages.user1, height: 50,),
         Image.asset(AppImages.user2, height: 50),

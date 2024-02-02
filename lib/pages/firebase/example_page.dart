@@ -33,14 +33,15 @@ class _ExemploPageState extends State<ExemploPage> {
     });
     var db = FirebaseFirestore.instance;
     // Create a new user with a first and last name
-    final user = <String, dynamic>{
-      "first": "Ada",
-      "last": "Lovelace",
-      "born": 1815
+    final sala = <String, dynamic>{
+      "descricao": "Linux",
+      "sala_id": 3,
+      "titulo": "Sala para discussão sobre a tecnologia"
     };
 
     // Add a new document with a generated ID
-    var doc = await db.collection("users").add(user);
+    //var doc = await db.collection("users").add(user);
+    var doc = await db.collection("salas").add(sala);
     print('DocumentSnapshot added with ID: ${doc.id}');
 
     var users = await db.collection("users").get();
