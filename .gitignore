@@ -30,7 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
+key.properties
+upload-keystore.jks
 # Symbolication related
 app.*.symbols
 
