@@ -36,12 +36,28 @@ class SalaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String nickName = 'teste';
+    var nicknameController = TextEditingController();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SalaChatPage(nickName: nickName, salaId: salaModel.salaId, titulo: salaModel.titulo,)));
+              showDialog(context: context, builder: (_){
+                return AlertDialog(
+                  content: Wrap(
+                    children: [
+                      const Text("Digite seu Nickname"),
+                      TextField(
+                        controller: nicknameController,
+                        maxLength: 30,
+                      ),
+                      TextButton(onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SalaChatPage(nickName: nicknameController.text, salaId: salaModel.salaId, titulo: salaModel.titulo,)));
+                      }, child: const Text('Entrar no chat'))
+                    ],
+                  ),
+                );
+              });
             },
             child: Hero(
               tag: salaModel.salaId,

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:_1_projeto/model/firebase/chat.dart';
-import 'package:_1_projeto/shared/widgets/chat_widget.dart';
+import 'package:_1_projeto/pages/forum/mensagens_model.dart';
+import 'package:_1_projeto/pages/forum/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,11 +50,11 @@ class _SalaChatPageState extends State<SalaChatPage> {
                               ? const Center( child: SizedBox( height: 80, child: CircularProgressIndicator()))
                               : ListView(
                                   children: snapshot.data!.docs.map((e) {
-                                    var textModel = TextModel.fromJson(
+                                    var mensagemModel = MensagemModel.fromJson(
                                         (e.data() as Map<String, dynamic>));
                                     return ChatWidget(
-                                        textModel: textModel,
-                                        souEu: textModel.userId == userId);
+                                        mensagemModel: mensagemModel,
+                                        souEu: mensagemModel.userId == userId);
                                   }).toList(),
                                 );
                         }),
@@ -68,7 +68,7 @@ class _SalaChatPageState extends State<SalaChatPage> {
                     child: Row(
                       children: [
                         Expanded(
-                            child: TextField(
+                          child: TextField(
                           controller: textoController,
                           decoration: const InputDecoration(
                               focusedBorder: InputBorder.none),
@@ -76,13 +76,14 @@ class _SalaChatPageState extends State<SalaChatPage> {
                         )),
                         IconButton(
                             onPressed: () async {
-                              var textModel = TextModel(
+                              var mensagemModel = MensagemModel(
                                   nickname: widget.nickName,
                                   text: textoController.text,
-                                  userId: userId);
+                                  userId: userId,
+                                  salaId: widget.salaId);
                               await db
                                   .collection("chats")
-                                  .add(textModel.toJson());
+                                  .add(mensagemModel.toJson());
                               textoController.text = '';
                             },
                             icon: const Icon(Icons.send))
